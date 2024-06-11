@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.28"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Actv_Grupal",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Actv_Grupal::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Actv_Grupal-Debug-07c66a785dd1e79595e3.json",
+					"name" : "Actv_Grupal",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/cmake-build-debug",
+		"source" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
