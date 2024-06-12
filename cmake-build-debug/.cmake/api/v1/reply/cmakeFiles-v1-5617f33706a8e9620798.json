@@ -21,6 +21,11 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
+			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
 			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake"
 		},
 		{
@@ -989,6 +994,21 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
+			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindCodeBlocks.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/ProcessorCount.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
 			"path" : "/Users/babago_ys/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCInformation.cmake"
 		},
 		{
@@ -1203,8 +1223,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/cmake-build-debug",
-		"source" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal"
+		"build" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/cmake-build-debug",
+		"source" : "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2\u00ba a\u00f1o/A\u00f1o(2023-2024)/1\u00baS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL"
 	},
 	"version" : 
 	{

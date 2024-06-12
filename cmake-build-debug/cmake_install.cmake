@@ -1,4 +1,4 @@
-# Install script for directory: /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal
+# Install script for directory: /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2º año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/babago_ys/Documents/Carreras/UEM/Informatica/2º año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
