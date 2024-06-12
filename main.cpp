@@ -3,6 +3,17 @@
 // Esto petenece a eddy
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    int main() {
+        CiudadGrande ciudad1;
+        Pueblo pueblo1;
+        Ruta ruta1;
+
+        // Ejemplo de cómo se podría interactuar con los menús
+        ciudad1.menu();
+        pueblo1.menu();
+        ruta1.menu();
+
+        return 0;
+    }
+
 }
