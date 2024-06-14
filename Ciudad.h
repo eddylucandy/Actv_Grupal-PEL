@@ -7,33 +7,44 @@
 
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include "Lista.h"
 
 using namespace std;
 
-// Definición de la clase Ciudad
 class Ciudad {
-protected:
-    
-    vector<string> viviendas; // Lista de viviendas
-
-    vector<string> objetos;   // Lista de objetos disponibles en la ciudad
-
-    string gimnasio;
-
-    string centroPokemon;
-
-    string tienda;
+private:
+    Lista<std::string> viviendas;
+    Lista<std::string> objetos;
+    std::string gimnasio;
+    std::string centroPokemon;
+    std::string tienda;
+    std::string nombre;
 
 public:
-    Ciudad(int numeroDeCasas) {
-        for (int i = 0; i < numeroDeCasas; ++i) {
-            viviendas.push_back("Casa " + to_string(i + 1));
-        }
+    Ciudad(std::string nombre) : nombre(nombre) {}
+
+    void agregarVivienda(const std::string& vivienda) {
+        viviendas.insertar(viviendas.longitud() + 1, vivienda);
     }
 
-    virtual void menuCiudad() {
+    void agregarObjeto(const std::string& objeto) {
+        objetos.insertar(objetos.longitud() + 1, objeto);
+    }
+
+    void establecerGimnasio(const std::string& gimnasio) {
+        this->gimnasio = gimnasio;
+    }
+
+    void establecerCentroPokemon(const std::string& centroPokemon) {
+        this->centroPokemon = centroPokemon;
+    }
+
+    void establecerTienda(const std::string& tienda) {
+        this->tienda = tienda;
+    }
+
+    void menuCiudad() {
         int opcion;
         cout << "Menu de la Ciudad:\n";
         cout << "1. Donde estoy\n";
@@ -74,18 +85,11 @@ public:
                 break;
         }
     }
-};
 
-// Subclase Pueblo, que hereda de Ciudad
-class Pueblo : public Ciudad {
-public:
-    Pueblo() : Ciudad(3) {} // Los pueblos tienen 3 casas
-};
 
-// Subclase CiudadGrande, que hereda de Ciudad
-class CiudadGrande : public Ciudad {
-public:
-    CiudadGrande() : Ciudad(5) {} // Las ciudades grandes tienen 5 casas
+    std::string getNombre() const {
+        return nombre;
+    }
 };
 
 #endif //ACTV_GRUPAL_CIUDAD_H
