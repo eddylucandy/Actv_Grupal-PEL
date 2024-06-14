@@ -5,32 +5,74 @@
 #ifndef ACTV_GRUPAL_CIUDAD_H
 #define ACTV_GRUPAL_CIUDAD_H
 
+
 #include <iostream>
 #include <vector>
 #include <string>
 
+using namespace std;
+
 // Definición de la clase Ciudad
 class Ciudad {
 protected:
-    std::vector<std::string> viviendas; // Lista de viviendas
-    std::vector<std::string> objetos;   // Lista de objetos disponibles en la ciudad
-    std::string gimnasio;
-    std::string centroPokemon;
-    std::string tienda;
+    
+    vector<string> viviendas; // Lista de viviendas
+
+    vector<string> objetos;   // Lista de objetos disponibles en la ciudad
+
+    string gimnasio;
+
+    string centroPokemon;
+
+    string tienda;
 
 public:
     Ciudad(int numeroDeCasas) {
         for (int i = 0; i < numeroDeCasas; ++i) {
-            viviendas.push_back("Casa " + std::to_string(i + 1));
+            viviendas.push_back("Casa " + to_string(i + 1));
         }
     }
 
-    virtual void menu() {
-        std::cout << "Donde estoy\n";
-        std::cout << "Moverse\n";
-        std::cout << "Mochila\n";
-        std::cout << "Equipo\n";
-        std::cout << "Información\n";
+    virtual void menuCiudad() {
+        int opcion;
+        cout << "Menu de la Ciudad:\n";
+        cout << "1. Donde estoy\n";
+        cout << "2. Moverse\n";
+        cout << "3. Mochila\n";
+        cout << "4. Equipo\n";
+        cout << "5. Información\n";
+        cout << "6. Abandonar el juego\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Estás en la ciudad XXX.\n";
+                break;
+            case 2:
+                cout << "Selecciona la dirección a la que deseas moverte.\n";
+                // Aquí se podría implementar una función adicional para manejar la navegación
+                break;
+            case 3:
+                cout << "Abriendo la mochila...\n";
+                // Lógica para mostrar o manipular el contenido de la mochila
+                break;
+            case 4:
+                cout << "Mostrando el equipo Pokémon.\n";
+                // Lógica para mostrar o cambiar el equipo Pokémon
+                break;
+            case 5:
+                cout << "Información de la ciudad y consejos útiles.\n";
+                // Proporcionar información relevante sobre la ciudad
+                break;
+            case 6:
+                cout << "Abandonando el juego...\n";
+                exit(0); // Termina la ejecución del programa
+                break;
+            default:
+                cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+                break;
+        }
     }
 };
 
