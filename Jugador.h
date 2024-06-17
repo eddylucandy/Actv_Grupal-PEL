@@ -34,6 +34,10 @@ public:
     std::string getNombre() const {
         return nombre;
     }
+
+    void pelearConEntrenador(Pokemon& rival);
+    void recolectarMedalla();
+
 };
 
 #endif // JUGADOR_H

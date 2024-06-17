@@ -21,12 +21,19 @@ public:
 
         int numPokemonsSalvajes = rand() % 10 + 1;
         for (int i = 0; i < numPokemonsSalvajes; i++) {
-            pokemonsSalvajes.push_back(Pokemon("PokemonSalvaje" + std::to_string(i + 1), "Tipo", 5, 100, 50, 50));
+            // Escoger un Pokémon base aleatorio de los primeros 20
+            const PokemonBase& base = primeros20Pokemon[rand() % primeros20Pokemon.size()];
+
+            // Crear un nuevo Pokémon con base en el PokémonBase seleccionado
+            Pokemon nuevoPokemon(base, 5, 100);
+
+            // Agregar el nuevo Pokémon salvaje al vector
+            pokemonsSalvajes.push_back(nuevoPokemon);
         }
     }
 
     void explorarRuta(Jugador& jugador) const {
-        std::cout << "Estas explorando la ruta..." << std::endl;
+        std::cout << "Estás explorando la ruta..." << std::endl;
         int evento = rand() % 2;
         if (evento == 0) {
             std::cout << "Te has encontrado con un entrenador!" << std::endl;

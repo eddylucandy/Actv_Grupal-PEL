@@ -1,5 +1,6 @@
 #ifndef JUEGO_H
 #define JUEGO_H
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -7,7 +8,6 @@
 #include "Ciudad.h"
 #include "Pueblo.h"
 #include "Ruta.h"
-
 
 class Juego {
 private:
@@ -17,7 +17,9 @@ private:
 public:
     Juego() : medallasRecolectadas(0) {}
 
-    void iniciarJuego();
+    void iniciarJuego();  // Declaración de la función iniciarJuego()
+
+    // Otras funciones de la clase Juego
     void seleccionarPokemonInicial();
     void viajar();
     void explorarRuta();
