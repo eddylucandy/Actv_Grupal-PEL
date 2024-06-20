@@ -10,6 +10,8 @@ using namespace std;
 
 void mapa() {
     // Implementar la función que dibuja el mapa aquí
+
+
     // Ejemplo de creación de grafo con ciudades y rutas
     Grafo<std::string, Ciudad, int> grafo;
 
