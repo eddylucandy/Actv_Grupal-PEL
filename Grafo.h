@@ -10,6 +10,8 @@
 #include "Par.h"
 #include <string>
 #include <memory> // para std::shared_ptr
+#include <stdexcept>
+#include <iostream>
 
 template <typename Clave, typename InfoVertice, typename Coste>
 class Grafo {
@@ -104,6 +106,8 @@ public:
             aristas.consultar(i).insertar(1, std::make_shared<NodoArista>(destino, c));
             origen->gradoSalida++;
             destino->gradoEntrada++;
+        } else {
+            std::cerr << "Error: Origen o destino no encontrado para insertar la arista.\n";
         }
     }
 
@@ -262,5 +266,6 @@ public:
         }
     }
 };
+
 
 #endif //ACTV_GRUPAL_GRAFO_H

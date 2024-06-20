@@ -11,19 +11,12 @@
 #include "Lista.h"
 #include "Par.h"
 #include "Rutas.h"
-#include <iostream>
-#include <stdexcept>
 
 class Mapa {
 private:
     Grafo<std::string, Ciudad, int> grafo;
     std::string posicionActual;
-
 public:
-    Mapa() {
-        inicializarMapa();
-    }
-
     void inicializarMapa() {
         // Crear ciudades
         Ciudad ciudad1("Ciudad1");
@@ -231,11 +224,7 @@ public:
 
     void mostrarInformacion() {
         // Proporcionar información relevante sobre la ciudad
-        try {
-            std::cout << grafo.consultarVertice(posicionActual).toString() << "\n";
-        } catch (const std::runtime_error& e) {
-            std::cout << "Error: " << e.what() << "\n";
-        }
+        std::cout << grafo.consultarVertice(posicionActual).toString() << "\n";
     }
 
     void ejecutar() {
