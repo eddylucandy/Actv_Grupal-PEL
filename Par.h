@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include "Lista.h"
+#pragma once
 
 using namespace std;
 

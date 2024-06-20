@@ -828,6 +828,7 @@ CMakeFiles/Actv_Grupal.dir/main.cpp.o: /Users/babago_ys/Documents/Carreras/UEM/I
   /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Ciudad.h \
   /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Grafo.h \
   /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Lista.h \
+  /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Mapa.h \
   /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Par.h \
   /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Rutas.h
 
@@ -965,6 +966,8 @@ CMakeFiles/Actv_Grupal.dir/main.cpp.o: /Users/babago_ys/Documents/Carreras/UEM/I
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/ranges_set_intersection.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_pthread/_pthread_cond_t.h:
+
+/Users/babago_ys/Documents/Carreras/UEM/Informatica/2º\ año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/Mapa.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/sys/_posix_availability.h:
 

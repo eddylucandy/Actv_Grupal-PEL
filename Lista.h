@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include "Par.h"
+#pragma once
 
 using namespace std;
 
@@ -90,9 +91,9 @@ public:
 
     std::string toString() const {
         if (esVacia()) return "";
-        std::string texto = std::to_string(contenedor[0]);
+        std::string texto = contenedor[0];
         for (int i = 1; i < longitud_actual; ++i) {
-            texto += " | " + std::to_string(contenedor[i]);
+            texto += " | " + contenedor[i];
         }
         return texto;
     }

@@ -5,70 +5,60 @@
 #ifndef ACTV_GRUPAL_GRAFO_H
 #define ACTV_GRUPAL_GRAFO_H
 
-#include <iostream>
-#include <string>
-#include "Par.h"
+#pragma once
 #include "Lista.h"
-
-using namespace std;
+#include "Par.h"
+#include <string>
 
 template <typename Clave, typename InfoVertice, typename Coste>
 class Grafo {
 protected:
-    // Clase interna que representa un vértice del grafo
     class NodoVertice {
     public:
-        Clave clave;  // Identificador del vértice
-        InfoVertice vertice;  // Información asociada al vértice
-        int gradoEntrada;  // Grado de entrada del vértice
-        int gradoSalida;  // Grado de salida del vértice
+        Clave clave;
+        InfoVertice vertice;
+        int gradoEntrada;
+        int gradoSalida;
 
-        // Constructor del NodoVertice
         NodoVertice(Clave c, InfoVertice v)
                 : clave(c), vertice(v), gradoEntrada(0), gradoSalida(0) {}
     };
 
-    // Clase interna que representa una arista del grafo
     class NodoArista {
     public:
-        NodoVertice* destino;  // Vértice destino de la arista
-        Coste coste;  // Peso de la arista
+        NodoVertice* destino;
+        Coste coste;
 
-        // Constructor del NodoArista con solo el destino
         NodoArista(NodoVertice* d) : destino(d), coste(Coste()) {}
-
-        // Constructor del NodoArista con destino y coste
         NodoArista(NodoVertice* d, Coste c) : destino(d), coste(c) {}
     };
 
-    // Atributos
-    Lista<NodoVertice*> vertices; // Conjunto de vértices
-    Lista<Lista<NodoArista*>> aristas; // Lista de adyacencia para representar las aristas
+    Lista<NodoVertice*> vertices;
+    Lista<Lista<NodoArista*>> aristas;
 
 public:
-    // Constructor del grafo
     Grafo() {}
 
-    // Destructor para liberar memoria
     ~Grafo() {
-        for (int i = 1; i <= vertices.longitud(); ++i) delete vertices.consultar(i);
-        for (int i = 1; i <= aristas.longitud(); ++i)
-            for (int j = 1; j <= aristas.consultar(i).longitud(); ++j)
+        for (int i = 1; i <= vertices.longitud(); ++i) {
+            delete vertices.consultar(i);
+        }
+        for (int i = 1; i <= aristas.longitud(); ++i) {
+            for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
                 delete aristas.consultar(i).consultar(j);
+            }
+        }
     }
 
-    // Método para verificar si el grafo está vacío
     bool esVacio() const {
         return vertices.longitud() == 0;
     }
 
-    // Método para insertar un vértice en el grafo
     void insertarVertice(Clave c, InfoVertice v) {
         vertices.insertar(vertices.longitud() + 1, new NodoVertice(c, v));
         aristas.insertar(aristas.longitud() + 1, Lista<NodoArista*>());
     }
 
-    // Método para modificar la información de un vértice existente
     void modificarVertice(Clave c, InfoVertice v) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == c) {
@@ -78,7 +68,6 @@ public:
         }
     }
 
-    // Método para eliminar un vértice del grafo
     void eliminarVertice(Clave c) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == c) {
@@ -90,7 +79,6 @@ public:
         }
     }
 
-    // Método para verificar si un vértice existe en el grafo
     bool existeVertice(Clave c) const {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == c) {
@@ -100,7 +88,6 @@ public:
         return false;
     }
 
-    // Método para insertar una arista en el grafo
     void insertarArista(Clave o, Clave d, Coste c) {
         NodoVertice* origen = nullptr;
         NodoVertice* destino = nullptr;
@@ -127,7 +114,6 @@ public:
         }
     }
 
-    // Método para modificar el coste de una arista existente
     void modificarArista(Clave o, Clave d, Coste c) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == o) {
@@ -141,7 +127,6 @@ public:
         }
     }
 
-    // Método para eliminar una arista del grafo
     void eliminarArista(Clave o, Clave d) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == o) {
@@ -158,13 +143,12 @@ public:
         }
     }
 
-    // Método para obtener el coste de una arista
     Coste costeArista(Clave o, Clave d) const {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == o) {
                 for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
-                    if (aristas.consultar(i)->consultar(j)->destino->clave == d) {
-                        return aristas.consultar(i)->consultar(j)->coste;
+                    if (aristas.consultar(i).consultar(j)->destino->clave == d) {
+                        return aristas.consultar(i).consultar(j)->coste;
                     }
                 }
             }
@@ -172,7 +156,6 @@ public:
         return Coste();
     }
 
-    // Método para obtener el grado de entrada de un vértice
     int gradoEntrada(Clave v) const {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == v) {
@@ -182,7 +165,6 @@ public:
         return 0;
     }
 
-    // Método para obtener el grado de salida de un vértice
     int gradoSalida(Clave v) const {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == v) {
@@ -192,7 +174,6 @@ public:
         return 0;
     }
 
-    // Método para obtener la lista de sucesores de un vértice
     Lista<Clave> listaSucesores(Clave v) const {
         Lista<Clave> sucesores;
         for (int i = 1; i <= vertices.longitud(); ++i) {
@@ -205,7 +186,6 @@ public:
         return sucesores;
     }
 
-    // Método para obtener la lista de predecesores de un vértice
     Lista<Clave> listaPredecesores(Clave v) const {
         Lista<Clave> predecesores;
         for (int i = 1; i <= vertices.longitud(); ++i) {
@@ -218,12 +198,10 @@ public:
         return predecesores;
     }
 
-    // Método para obtener el número de vértices en el grafo
     int numVertices() const {
         return vertices.longitud();
     }
 
-    // Método para obtener la lista de todos los vértices
     Lista<Clave> listaVertices() const {
         Lista<Clave> lista;
         for (int i = 1; i <= vertices.longitud(); ++i) {
@@ -232,7 +210,6 @@ public:
         return lista;
     }
 
-    // Método para obtener la lista de aristas como pares de vértices
     Lista<Par<Clave, Clave>> listaAristas() const {
         Lista<Par<Clave, Clave>> listado;
         for (int i = 1; i <= vertices.longitud(); ++i) {
@@ -247,7 +224,6 @@ public:
         return listado;
     }
 
-    // Método toString para representar el grafo como una cadena de texto
     std::string toString() const {
         std::string texto;
         for (int i = 1; i <= vertices.longitud(); ++i) {
@@ -261,7 +237,6 @@ public:
         return texto;
     }
 
-    // Método recursivo para el recorrido en profundidad
     static void profREC(Grafo<Clave, InfoVertice, Coste>& gr, Clave inicio, Lista<Clave>& noVisitados) {
         std::cout << "*VISITO: " << inicio << std::endl;
         noVisitados.borrar(noVisitados.buscar(inicio));
@@ -277,7 +252,6 @@ public:
         }
     }
 
-    // Método para iniciar el recorrido en profundidad desde un vértice dado
     static void profundidad(Grafo<Clave, InfoVertice, Coste>& gr, Clave inicio) {
         Lista<Clave> noVisitados = gr.listaVertices();
         profREC(gr, inicio, noVisitados);

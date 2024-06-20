@@ -9,6 +9,7 @@
 #include <string>
 #include "Par.h"
 #include "Lista.h"
+#pragma once
 
 using namespace std;
 
@@ -18,8 +19,13 @@ private:
     Lista<std::string> pokemonsSalvajes;
     Lista<std::string> objetosOcultos;
     Lista<std::string> entrenadores;
+    string nombre;
 
 public:
+    Ruta() : nombre("") {}
+    Ruta(std::string nombre) : nombre(nombre) {}
+
+
     void agregarPokemonSalvaje(const std::string& pokemon) {
         pokemonsSalvajes.insertar(pokemonsSalvajes.longitud() + 1, pokemon);
     }
@@ -32,10 +38,23 @@ public:
         entrenadores.insertar(entrenadores.longitud() + 1, entrenador);
     }
 
+    string getNombre() const {
+        return nombre;
+    }
+
+    std::string toString() const {
+        std::string info = "Ruta: " + nombre + "\n";
+        info += "Pokemons Salvajes: " + pokemonsSalvajes.toString() + "\n";
+        info += "Objetos Ocultos: " + objetosOcultos.toString() + "\n";
+        info += "Entrenadores: " + entrenadores.toString() + "\n";
+        return info;
+    }
+
     void menuRuta() const {
-        std::cout << "Menu de la Ruta:\n";
-        std::cout << "1. Explorar\n";
-        std::cout << "2. Moverse\n";
+        int opcion;
+        cout << "Menu de la Ruta:\n";
+        cout << "1. Explorar\n";
+        cout << "2. Moverse\n";
         cout << "3. Abandonar el juego\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
