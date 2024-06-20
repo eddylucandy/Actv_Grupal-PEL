@@ -11,12 +11,20 @@
 #include "Lista.h"
 #include "Par.h"
 #include "Rutas.h"
+#include <iostream>
+#include <stdexcept>
 
 class Mapa {
-public:
-    void mapa() {
-        Grafo<std::string, Ciudad, int> grafo;
+private:
+    Grafo<std::string, Ciudad, int> grafo;
+    std::string posicionActual;
 
+public:
+    Mapa() {
+        inicializarMapa();
+    }
+
+    void inicializarMapa() {
         // Crear ciudades
         Ciudad ciudad1("Ciudad1");
         Ciudad ciudad2("Ciudad2");
@@ -133,6 +141,116 @@ public:
 
         // Mostrar el grafo (mapa)
         std::cout << grafo.toString() << std::endl;
+
+        // Definir la posición inicial del jugador
+        posicionActual = "Ciudad1";
+    }
+
+    void menuCiudad() {
+        int opcion;
+        std::cout << "Menu de la Ciudad:\n";
+        std::cout << "1. Donde estoy\n";
+        std::cout << "2. Moverse\n";
+        std::cout << "3. Mochila\n";
+        std::cout << "4. Equipo\n";
+        std::cout << "5. Información\n";
+        std::cout << "6. Abandonar el juego\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                std::cout << "Estás en " << posicionActual << ".\n";
+                break;
+            case 2:
+                moverse();
+                break;
+            case 3:
+                std::cout << "Abriendo la mochila...\n";
+                // Lógica para mostrar o manipular el contenido de la mochila
+                break;
+            case 4:
+                std::cout << "Mostrando el equipo Pokémon.\n";
+                // Lógica para mostrar o cambiar el equipo Pokémon
+                break;
+            case 5:
+                mostrarInformacion();
+                break;
+            case 6:
+                std::cout << "Abandonando el juego...\n";
+                exit(0); // Termina la ejecución del programa
+                break;
+            default:
+                std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+                break;
+        }
+    }
+
+    void menuRuta() {
+        int opcion;
+        std::cout << "Menu de la Ruta:\n";
+        std::cout << "1. Explorar\n";
+        std::cout << "2. Moverse\n";
+        std::cout << "3. Abandonar el juego\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                std::cout << "Explorando la ruta desde " << posicionActual << "...\n";
+                // Lógica para explorar la ruta
+                break;
+            case 2:
+                moverse();
+                break;
+            case 3:
+                std::cout << "Abandonando el juego...\n";
+                exit(0); // Termina la ejecución del programa
+                break;
+            default:
+                std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+                break;
+        }
+    }
+
+    void moverse() {
+        std::cout << "Selecciona la dirección a la que deseas moverte desde " << posicionActual << ":\n";
+        Lista<std::string> destinos = grafo.listaSucesores(posicionActual);
+        for (int i = 1; i <= destinos.longitud(); ++i) {
+            std::cout << i << ". " << destinos.consultar(i) << "\n";
+        }
+        int opcion;
+        std::cin >> opcion;
+        if (opcion > 0 && opcion <= destinos.longitud()) {
+            posicionActual = destinos.consultar(opcion);
+            std::cout << "Te has movido a " << posicionActual << ".\n";
+        } else {
+            std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+        }
+    }
+
+    void mostrarInformacion() {
+        // Proporcionar información relevante sobre la ciudad
+        try {
+            std::cout << grafo.consultarVertice(posicionActual).toString() << "\n";
+        } catch (const std::runtime_error& e) {
+            std::cout << "Error: " << e.what() << "\n";
+        }
+    }
+
+    void ejecutar() {
+        while (true) {
+            if (esCiudad(posicionActual)) {
+                menuCiudad();
+            } else {
+                menuRuta();
+            }
+        }
+    }
+
+    bool esCiudad(const std::string& nombre) {
+        // Asumiendo que las ciudades tienen nombres que empiezan con "Ciudad"
+        return nombre.find("Ciudad") == 0;
     }
 };
 

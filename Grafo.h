@@ -9,6 +9,7 @@
 #include "Lista.h"
 #include "Par.h"
 #include <string>
+#include <memory> // para std::shared_ptr
 
 template <typename Clave, typename InfoVertice, typename Coste>
 class Grafo {
@@ -26,28 +27,21 @@ protected:
 
     class NodoArista {
     public:
-        NodoVertice* destino;
+        std::shared_ptr<NodoVertice> destino;
         Coste coste;
 
-        NodoArista(NodoVertice* d) : destino(d), coste(Coste()) {}
-        NodoArista(NodoVertice* d, Coste c) : destino(d), coste(c) {}
+        NodoArista(std::shared_ptr<NodoVertice> d) : destino(d), coste(Coste()) {}
+        NodoArista(std::shared_ptr<NodoVertice> d, Coste c) : destino(d), coste(c) {}
     };
 
-    Lista<NodoVertice*> vertices;
-    Lista<Lista<NodoArista*>> aristas;
+    Lista<std::shared_ptr<NodoVertice>> vertices;
+    Lista<Lista<std::shared_ptr<NodoArista>>> aristas;
 
 public:
     Grafo() {}
 
     ~Grafo() {
-        for (int i = 1; i <= vertices.longitud(); ++i) {
-            delete vertices.consultar(i);
-        }
-        for (int i = 1; i <= aristas.longitud(); ++i) {
-            for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
-                delete aristas.consultar(i).consultar(j);
-            }
-        }
+        // No es necesario eliminar manualmente al usar smart pointers
     }
 
     bool esVacio() const {
@@ -55,8 +49,8 @@ public:
     }
 
     void insertarVertice(Clave c, InfoVertice v) {
-        vertices.insertar(vertices.longitud() + 1, new NodoVertice(c, v));
-        aristas.insertar(aristas.longitud() + 1, Lista<NodoArista*>());
+        vertices.insertar(vertices.longitud() + 1, std::make_shared<NodoVertice>(c, v));
+        aristas.insertar(aristas.longitud() + 1, Lista<std::shared_ptr<NodoArista>>());
     }
 
     void modificarVertice(Clave c, InfoVertice v) {
@@ -71,7 +65,6 @@ public:
     void eliminarVertice(Clave c) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == c) {
-                delete vertices.consultar(i);
                 vertices.borrar(i);
                 aristas.borrar(i);
                 break;
@@ -89,8 +82,8 @@ public:
     }
 
     void insertarArista(Clave o, Clave d, Coste c) {
-        NodoVertice* origen = nullptr;
-        NodoVertice* destino = nullptr;
+        std::shared_ptr<NodoVertice> origen = nullptr;
+        std::shared_ptr<NodoVertice> destino = nullptr;
         int i = 1, j = 1;
 
         for (; i <= vertices.longitud(); ++i) {
@@ -108,7 +101,7 @@ public:
         }
 
         if (origen && destino) {
-            aristas.consultar(i).insertar(1, new NodoArista(destino, c));
+            aristas.consultar(i).insertar(1, std::make_shared<NodoArista>(destino, c));
             origen->gradoSalida++;
             destino->gradoEntrada++;
         }
@@ -132,7 +125,6 @@ public:
             if (vertices.consultar(i)->clave == o) {
                 for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
                     if (aristas.consultar(i).consultar(j)->destino->clave == d) {
-                        delete aristas.consultar(i).consultar(j);
                         aristas.consultar(i).borrar(j);
                         vertices.consultar(i)->gradoSalida--;
                         vertices.consultar(j)->gradoEntrada--;
@@ -222,6 +214,15 @@ public:
             }
         }
         return listado;
+    }
+
+    InfoVertice consultarVertice(Clave c) const {
+        for (int i = 1; i <= vertices.longitud(); ++i) {
+            if (vertices.consultar(i)->clave == c) {
+                return vertices.consultar(i)->vertice;
+            }
+        }
+        throw std::runtime_error("Vertice no encontrado");
     }
 
     std::string toString() const {

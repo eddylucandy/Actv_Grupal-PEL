@@ -1,16 +1,17 @@
 
 #include <iostream>
 #include "Mapa.h"
-#pragma once
+
 
 using namespace std;
 
 
     int main() {
-        // Llamar a la función mapa
+        // Crear el objeto Mapa
         Mapa ini;
 
-        ini.mapa();
+        // Ejecutar el bucle principal del menú
+        ini.ejecutar();
 
         return 0;
     }
