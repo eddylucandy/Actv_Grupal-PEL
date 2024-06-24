@@ -1,5 +1,3 @@
-
-<<<<<<< HEAD
 #include "Pokemon.h"
 #include "Juego.h"
 #include "Jugador.h"
