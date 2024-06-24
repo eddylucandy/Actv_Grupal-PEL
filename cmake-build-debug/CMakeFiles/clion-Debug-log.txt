@@ -20,6 +20,10 @@ CMake Deprecation Warning:
 -- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
+<<<<<<< HEAD
 -- Configuring done (1.0s)
+=======
+-- Configuring done (2.3s)
+>>>>>>> Eddy
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/babago_ys/Documents/Carreras/UEM/Informatica/2º año/Año(2023-2024)/1ºS/PEL/Desarrollo/ExtraOrdinaria/Actv_Grupal/Actv_Grupal-PEL/cmake-build-debug
