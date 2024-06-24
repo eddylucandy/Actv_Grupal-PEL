@@ -192,6 +192,7 @@ public:
             case 1:
                 std::cout << "Explorando la ruta desde " << posicionActual << "...\n";
                 // Lógica para explorar la ruta
+                mostrarInformacion();  // Muestra información detallada de la ubicación actual
                 break;
             case 2:
                 moverse();
