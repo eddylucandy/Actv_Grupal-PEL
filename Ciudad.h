@@ -59,7 +59,7 @@ class Ciudad {
             info += "Tienda: " + tienda + "\n";
             return info;
     }
-
+        /*
         void menuCiudad() {
             int opcion;
             cout << "Menu de la Ciudad:\n";
@@ -100,7 +100,7 @@ class Ciudad {
                     cout << "Opción no válida. Por favor, intenta de nuevo.\n";
                     break;
             }
-        }
+        } */
 };
 
 #endif //ACTV_GRUPAL_CIUDAD_H

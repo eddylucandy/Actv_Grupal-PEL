@@ -192,7 +192,7 @@ public:
             case 1:
                 std::cout << "Explorando la ruta desde " << posicionActual << "...\n";
                 // Lógica para explorar la ruta
-                mostrarInformacion();  // Muestra información detallada de la ubicación actual
+                explorarRuta();
                 break;
             case 2:
                 moverse();
@@ -208,25 +208,104 @@ public:
     }
 
     void moverse() {
-        std::cout << "Selecciona la dirección a la que deseas moverte desde " << posicionActual << ":\n";
         Lista<std::string> destinos = grafo.listaSucesores(posicionActual);
+        if (destinos.longitud() == 0) {
+            std::cout << "No hay destinos disponibles desde aquí." << std::endl;
+            return;
+        }
         for (int i = 1; i <= destinos.longitud(); ++i) {
             std::cout << i << ". " << destinos.consultar(i) << "\n";
         }
+        std::cout << "Selecciona la dirección a la que deseas moverte: ";
         int opcion;
         std::cin >> opcion;
         if (opcion > 0 && opcion <= destinos.longitud()) {
-            posicionActual = destinos.consultar(opcion);
-            std::cout << "Te has movido a " << posicionActual << ".\n";
+            std::string destinoSeleccionado = destinos.consultar(opcion);
+            menuRuta(); // Invoca el menú de ruta antes de actualizar posición actual
+            posicionActual = destinoSeleccionado;
+            std::cout << "Has llegado a " << posicionActual << ".\n";
         } else {
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
         }
     }
 
+    void explorarRuta() {
+        std::cout << "Explorando la ruta...\n";
+        int encuentro = rand() % 3;  // Genera un número aleatorio entre 0 y 2
+
+        switch (encuentro) {
+            case 0:
+                encuentroPokemon();
+                break;
+            case 1:
+                encuentroEntrenador();
+                break;
+            case 2:
+                encuentroObjeto();
+                break;
+            default:
+                std::cout << "Sigues tu camino sin incidentes.\n";
+                break;
+        }
+    }
+
+
+    void encuentroPokemon() {
+        std::cout << "¡Encontraste un Pokémon salvaje! ¿Quieres pelear o huir?\n";
+        std::cout << "1. Pelear\n";
+        std::cout << "2. Huir\n";
+        int eleccion;
+        std::cin >> eleccion;
+        if (eleccion == 1) {
+            std::cout << "¡Comienzas la batalla Pokémon!\n";
+            // Lógica de batalla (a implementar)
+        }else if(eleccion == 2){
+            std::cout << "Decides huir. Continuas tu viaje.\n";
+        }else {
+            std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+        }
+    }
+
+
+    void encuentroEntrenador() {
+        std::cout << "¡Encontraste un entrenador Pokémon dispuesto a luchar! ¿Quieres pelear o huir?\n";
+        std::cout << "1. Pelear\n";
+        std::cout << "2. Huir\n";
+        int eleccion;
+        std::cin >> eleccion;
+        if (eleccion == 1) {
+            std::cout << "¡El combate comienza!\n";
+            // Lógica de combate (a implementar)
+        } else if(eleccion == 2){
+            std::cout << "Decides huir. Sigues tu camino.\n";
+        }else{
+            std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+        }
+    }
+
+
+    void encuentroObjeto() {
+        std::cout << "¡Has encontrado un objeto en el camino! ¿Quieres cogerlo o dejarlo?\n";
+        std::cout << "1. Cogerlo\n";
+        std::cout << "2. Dejarlo\n";
+        int eleccion;
+        std::cin >> eleccion;
+        if (eleccion == 1) {
+            std::cout << "Tomas el objeto y lo guardas en tu mochila.\n";
+            // Añadir objeto a la mochila (a implementar)
+        } else if (eleccion == 2){
+            std::cout << "Decides dejarlo donde está y continuar tu aventura.\n";
+        }else{
+            std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+        }
+    }
+
+
     void mostrarInformacion() {
         // Proporcionar información relevante sobre la ciudad
         std::cout << grafo.consultarVertice(posicionActual).toString() << "\n";
     }
+
 
     void ejecutar() {
         while (true) {
@@ -237,11 +316,16 @@ public:
             }
         }
     }
-
+/*
     bool esCiudad(const std::string& nombre) {
         // Asumiendo que las ciudades tienen nombres que empiezan con "Ciudad"
         return nombre.find("Ciudad") == 0;
+    }*/
+    bool esCiudad(const std::string& nombre) {
+        // Asumiendo que las ciudades tienen nombres que empiezan con "Ciudad"
+        return nombre.find("Ciudad") != std::string::npos;
     }
+
 };
 
 #endif //ACTV_GRUPAL_MAPA_H

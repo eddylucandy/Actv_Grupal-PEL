@@ -50,6 +50,8 @@ public:
         return info;
     }
 
+
+    /*
     void menuRuta() const {
         int opcion;
         cout << "Menu de la Ruta:\n";
@@ -75,7 +77,7 @@ public:
                 cout << "Opción no válida. Por favor, intenta de nuevo.\n";
                 break;
         }
-    }
+    } */
 };
 
 #endif //ACTV_GRUPAL_RUTAS_H
