@@ -36,8 +36,8 @@ protected:
         NodoArista(std::shared_ptr<NodoVertice> d, Coste c) : destino(d), coste(c) {}
     };
 
-    Lista<std::shared_ptr<NodoVertice>> vertices;
-    Lista<Lista<std::shared_ptr<NodoArista>>> aristas;
+    Lista<std::shared_ptr<NodoVertice> > vertices;
+    Lista<Lista<std::shared_ptr<NodoArista> > > aristas;
 
 public:
     Grafo() {}
@@ -52,7 +52,7 @@ public:
 
     void insertarVertice(Clave c, InfoVertice v) {
         vertices.insertar(vertices.longitud() + 1, std::make_shared<NodoVertice>(c, v));
-        aristas.insertar(aristas.longitud() + 1, Lista<std::shared_ptr<NodoArista>>());
+        aristas.insertar(aristas.longitud() + 1, Lista<std::shared_ptr<NodoArista> >());
     }
 
     void modificarVertice(Clave c, InfoVertice v) {
@@ -206,8 +206,8 @@ public:
         return lista;
     }
 
-    Lista<Par<Clave, Clave>> listaAristas() const {
-        Lista<Par<Clave, Clave>> listado;
+    Lista<Par<Clave, Clave> > listaAristas() const {
+        Lista<Par<Clave, Clave> > listado;
         for (int i = 1; i <= vertices.longitud(); ++i) {
             Clave origen = vertices.consultar(i)->clave;
             Lista<Clave> sucesores = listaSucesores(origen);
