@@ -1,3 +1,4 @@
+//#include <mysql.h>
 #include "Pokemon.h"
 #include "Juego.h"
 #include "Jugador.h"
@@ -5,6 +6,8 @@
 #include <cstdlib> // Para funciones rand() y srand()
 #include <ctime>   // Para la semilla srand()
 
+
+/*
 // Definición de la lista de los primeros 20 Pokémon de la primera generación
 const std::vector<PokemonBase> primeros20Pokemon {
         {"Bulbasaur", TipoPokemon::Planta, 5, 100, 50, 50, {{"Placaje", 40}, {"Hoja Afilada", 55}}},
@@ -278,3 +281,22 @@ using namespace std;
         return 0;
     }
 >>>>>>> Eddy
+*/
+
+     int main() {
+         // aspectos a tener en cuenta el punto h de msql
+     }
+#include <iostream>
+    using namespace std;
+    int main()
+    MYSQL* conectar;
+    conectar r = mysql_init(0);
+    conectar = mysql_real_connect(conectar, "localhost", "usr_empresa", "Empresa@123" , "db_empresa", 3306, NULL, 0);
+    if (conectar) {
+        cout << "Conexion Exitosa..." << endl;
+        else {
+            cout << "Error en la Conexion..." << endl;
+            system("pause");
+            return 0;
+
+     }
