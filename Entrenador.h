@@ -2,7 +2,7 @@
 #define ENTRENADOR_H
 
 #include <vector>
-#include "Pokemon.h"  // Asegúrate de incluir Pokemon.h aquí
+#include "Pokemon.h"
 
 class Entrenador {
 private:
