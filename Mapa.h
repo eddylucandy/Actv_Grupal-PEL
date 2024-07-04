@@ -11,132 +11,107 @@
 #include "Lista.h"
 #include "Par.h"
 #include "Rutas.h"
+#include <memory>
 
 class Mapa {
 private:
-    Grafo<std::string, Ciudad, int> grafo;
+    Grafo<std::string, std::shared_ptr<void>, int> grafo; // Usar std::shared_ptr<void> para almacenar tanto Ciudad como Ruta
     std::string posicionActual;
+    bool juegoContinua;
+
 public:
+    Mapa() : juegoContinua(true) {}
+
     void inicializarMapa() {
-        // Crear ciudades
-        Ciudad ciudad1("Ciudad1");
-        Ciudad ciudad2("Ciudad2");
-        Ciudad ciudad3("Ciudad3");
-        Ciudad ciudad4("Ciudad4");
-        Ciudad pueblo1("Pueblo1");
-        Ciudad pueblo2("Pueblo2");
-        Ciudad pueblo3("Pueblo3");
-        Ciudad pueblo4("Pueblo4");
-        Ciudad pueblo5("Pueblo5");
-        Ciudad pueblo6("Pueblo6");
+        // Crear ciudades y rutas según el mapa proporcionado
+        auto P1 = std::make_shared<Ciudad>("Ciudad1");
+        auto P2 = std::make_shared<Ciudad>("Ciudad2");
+        auto P3 = std::make_shared<Ciudad>("Ciudad3");
+        auto P4 = std::make_shared<Ciudad>("Ciudad4");
+        auto P5 = std::make_shared<Ciudad>("Ciudad5");
+        auto P6 = std::make_shared<Ciudad>("Ciudad6");
+        auto P7 = std::make_shared<Ciudad>("Ciudad7");
+        auto P8 = std::make_shared<Ciudad>("Ciudad8");
+        auto P9 = std::make_shared<Ciudad>("Ciudad9");
+        auto P10 = std::make_shared<Ciudad>("Ciudad10");
+        auto P11 = std::make_shared<Ciudad>("Ciudad11");
+        auto P12 = std::make_shared<Ciudad>("Ciudad12");
 
-        // Establecer propiedades de las ciudades
-        ciudad1.agregarVivienda("Casa1");
-        ciudad1.agregarVivienda("Casa2");
-        ciudad1.agregarVivienda("Casa3");
-        ciudad1.agregarVivienda("Casa4");
-        ciudad1.agregarVivienda("Casa5");
-        ciudad1.agregarObjeto("Piedra Lunar");
-        ciudad1.establecerGimnasio("Gimnasio Ciudad1");
-        ciudad1.establecerCentroPokemon("Centro Pokemon Ciudad1");
-        ciudad1.establecerTienda("Tienda Ciudad1");
+        auto R1 = std::make_shared<Ruta>("Ruta1");
+        auto R2 = std::make_shared<Ruta>("Ruta2");
+        auto R3 = std::make_shared<Ruta>("Ruta3");
+        auto R4 = std::make_shared<Ruta>("Ruta4");
+        auto R5 = std::make_shared<Ruta>("Ruta5");
+        auto R6 = std::make_shared<Ruta>("Ruta6");
+        auto R7 = std::make_shared<Ruta>("Ruta7");
+        auto R8 = std::make_shared<Ruta>("Ruta8");
+        auto R9 = std::make_shared<Ruta>("Ruta9");
+        auto R10 = std::make_shared<Ruta>("Ruta10");
+        auto R11 = std::make_shared<Ruta>("Ruta11");
+        auto R12 = std::make_shared<Ruta>("Ruta12");
+        auto R13 = std::make_shared<Ruta>("Ruta13");
 
-        ciudad2.agregarVivienda("Casa1");
-        ciudad2.agregarVivienda("Casa2");
-        ciudad2.agregarVivienda("Casa3");
-        ciudad2.agregarVivienda("Casa4");
-        ciudad2.agregarVivienda("Casa5");
-        ciudad2.agregarObjeto("Pocion");
-        ciudad2.establecerGimnasio("Gimnasio Ciudad2");
-        ciudad2.establecerCentroPokemon("Centro Pokemon Ciudad2");
-        ciudad2.establecerTienda("Tienda Ciudad2");
+        // Insertar ciudades y rutas en el grafo
+        grafo.insertarVertice("P1", P1);
+        grafo.insertarVertice("P2", P2);
+        grafo.insertarVertice("P3", P3);
+        grafo.insertarVertice("P4", P4);
+        grafo.insertarVertice("P5", P5);
+        grafo.insertarVertice("P6", P6);
+        grafo.insertarVertice("P7", P7);
+        grafo.insertarVertice("P8", P8);
+        grafo.insertarVertice("P9", P9);
+        grafo.insertarVertice("P10", P10);
+        grafo.insertarVertice("P11", P11);
+        grafo.insertarVertice("P12", P12);
 
-        ciudad3.agregarVivienda("Casa1");
-        ciudad3.agregarVivienda("Casa2");
-        ciudad3.agregarVivienda("Casa3");
-        ciudad3.agregarVivienda("Casa4");
-        ciudad3.agregarVivienda("Casa5");
-        ciudad3.agregarObjeto("Superpocion");
-        ciudad3.establecerGimnasio("Gimnasio Ciudad3");
-        ciudad3.establecerCentroPokemon("Centro Pokemon Ciudad3");
-        ciudad3.establecerTienda("Tienda Ciudad3");
+        grafo.insertarVertice("R1", R1);
+        grafo.insertarVertice("R2", R2);
+        grafo.insertarVertice("R3", R3);
+        grafo.insertarVertice("R4", R4);
+        grafo.insertarVertice("R5", R5);
+        grafo.insertarVertice("R6", R6);
+        grafo.insertarVertice("R7", R7);
+        grafo.insertarVertice("R8", R8);
+        grafo.insertarVertice("R9", R9);
+        grafo.insertarVertice("R10", R10);
+        grafo.insertarVertice("R11", R11);
+        grafo.insertarVertice("R12", R12);
+        grafo.insertarVertice("R13", R13);
 
-        ciudad4.agregarVivienda("Casa1");
-        ciudad4.agregarVivienda("Casa2");
-        ciudad4.agregarVivienda("Casa3");
-        ciudad4.agregarVivienda("Casa4");
-        ciudad4.agregarVivienda("Casa5");
-        ciudad4.agregarObjeto("Antidoto");
-        ciudad4.establecerGimnasio("Gimnasio Ciudad4");
-        ciudad4.establecerCentroPokemon("Centro Pokemon Ciudad4");
-        ciudad4.establecerTienda("Tienda Ciudad4");
-
-        // Establecer propiedades de los pueblos
-        pueblo1.agregarVivienda("Casa1");
-        pueblo1.agregarVivienda("Casa2");
-        pueblo1.agregarVivienda("Casa3");
-        pueblo1.agregarObjeto("Cuerda Huida");
-        pueblo1.establecerCentroPokemon("Centro Pokemon Pueblo1");
-
-        pueblo2.agregarVivienda("Casa1");
-        pueblo2.agregarVivienda("Casa2");
-        pueblo2.agregarVivienda("Casa3");
-        pueblo2.agregarObjeto("Piedra Trueno");
-        pueblo2.establecerCentroPokemon("Centro Pokemon Pueblo2");
-
-        pueblo3.agregarVivienda("Casa1");
-        pueblo3.agregarVivienda("Casa2");
-        pueblo3.agregarVivienda("Casa3");
-        pueblo3.agregarObjeto("Piedra Fuego");
-        pueblo3.establecerCentroPokemon("Centro Pokemon Pueblo3");
-
-        pueblo4.agregarVivienda("Casa1");
-        pueblo4.agregarVivienda("Casa2");
-        pueblo4.agregarVivienda("Casa3");
-        pueblo4.agregarObjeto("Piedra Agua");
-        pueblo4.establecerCentroPokemon("Centro Pokemon Pueblo4");
-
-        pueblo5.agregarVivienda("Casa1");
-        pueblo5.agregarVivienda("Casa2");
-        pueblo5.agregarVivienda("Casa3");
-        pueblo5.agregarObjeto("Revivir");
-        pueblo5.establecerCentroPokemon("Centro Pokemon Pueblo5");
-
-        pueblo6.agregarVivienda("Casa1");
-        pueblo6.agregarVivienda("Casa2");
-        pueblo6.agregarVivienda("Casa3");
-        pueblo6.agregarObjeto("Max Pocion");
-        pueblo6.establecerCentroPokemon("Centro Pokemon Pueblo6");
-
-        // Insertar ciudades y pueblos en el grafo
-        grafo.insertarVertice("Ciudad1", ciudad1);
-        grafo.insertarVertice("Ciudad2", ciudad2);
-        grafo.insertarVertice("Ciudad3", ciudad3);
-        grafo.insertarVertice("Ciudad4", ciudad4);
-        grafo.insertarVertice("Pueblo1", pueblo1);
-        grafo.insertarVertice("Pueblo2", pueblo2);
-        grafo.insertarVertice("Pueblo3", pueblo3);
-        grafo.insertarVertice("Pueblo4", pueblo4);
-        grafo.insertarVertice("Pueblo5", pueblo5);
-        grafo.insertarVertice("Pueblo6", pueblo6);
-
-        // Crear rutas entre ciudades y pueblos
-        grafo.insertarArista("Ciudad1", "Ciudad2", 1);
-        grafo.insertarArista("Ciudad1", "Pueblo1", 1);
-        grafo.insertarArista("Ciudad2", "Ciudad3", 1);
-        grafo.insertarArista("Ciudad2", "Pueblo2", 1);
-        grafo.insertarArista("Ciudad3", "Ciudad4", 1);
-        grafo.insertarArista("Ciudad3", "Pueblo3", 1);
-        grafo.insertarArista("Ciudad4", "Pueblo4", 1);
-        grafo.insertarArista("Pueblo1", "Pueblo5", 1);
-        grafo.insertarArista("Pueblo2", "Pueblo6", 1);
-        grafo.insertarArista("Pueblo3", "Pueblo4", 1);
+        // Crear conexiones entre ciudades y rutas según el mapa proporcionado
+        grafo.insertarArista("P1", "R1", 1);
+        grafo.insertarArista("R1", "P12", 1);
+        grafo.insertarArista("P12", "R2", 1);
+        grafo.insertarArista("R2", "P11", 1);
+        grafo.insertarArista("P1", "R3", 1);
+        grafo.insertarArista("R3", "P2", 1);
+        grafo.insertarArista("P2", "R4", 1);
+        grafo.insertarArista("R4", "P3", 1);
+        grafo.insertarArista("P3", "R5", 1);
+        grafo.insertarArista("R5", "P4", 1);
+        grafo.insertarArista("P4", "R6", 1);
+        grafo.insertarArista("R6", "P5", 1);
+        grafo.insertarArista("P4", "R7", 1);
+        grafo.insertarArista("R7", "P6", 1);
+        grafo.insertarArista("P5", "R8", 1);
+        grafo.insertarArista("R8", "P7", 1);
+        grafo.insertarArista("P6", "R9", 1);
+        grafo.insertarArista("R9", "P8", 1);
+        grafo.insertarArista("P7", "R10", 1);
+        grafo.insertarArista("R10", "P8", 1);
+        grafo.insertarArista("P8", "R11", 1);
+        grafo.insertarArista("R11", "P9", 1);
+        grafo.insertarArista("P9", "R12", 1);
+        grafo.insertarArista("R12", "P10", 1);
+        grafo.insertarArista("P10", "R13", 1);
+        grafo.insertarArista("R13", "P11", 1);
 
         // Mostrar el grafo (mapa)
         std::cout << grafo.toString() << std::endl;
 
         // Definir la posición inicial del jugador
-        posicionActual = "Ciudad1";
+        posicionActual = "P1";
     }
 
     void menuCiudad() {
@@ -170,8 +145,12 @@ public:
                 mostrarInformacion();
                 break;
             case 6:
-                std::cout << "Abandonando el juego...\n";
-                exit(0); // Termina la ejecución del programa
+                std::cout << "¿Estás seguro de que quieres abandonar el juego? (s/n): ";
+                char respuesta;
+                std::cin >> respuesta;
+                if (respuesta == 's' || respuesta == 'S') {
+                    juegoContinua = false;
+                }
                 break;
             default:
                 std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
@@ -198,8 +177,12 @@ public:
                 moverse();
                 break;
             case 3:
-                std::cout << "Abandonando el juego...\n";
-                exit(0); // Termina la ejecución del programa
+                std::cout << "¿Estás seguro de que quieres abandonar el juego? (s/n): ";
+                char respuesta;
+                std::cin >> respuesta;
+                if (respuesta == 's' || respuesta == 'S') {
+                    juegoContinua = false;
+                }
                 break;
             default:
                 std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
@@ -221,7 +204,11 @@ public:
         std::cin >> opcion;
         if (opcion > 0 && opcion <= destinos.longitud()) {
             std::string destinoSeleccionado = destinos.consultar(opcion);
-            menuRuta(); // Invoca el menú de ruta antes de actualizar posición actual
+            if (esRuta(destinoSeleccionado)) {
+                menuRuta(); // Invoca el menú de ruta antes de actualizar posición actual
+            } else {
+                menuCiudad(); // Invoca el menú de ciudad antes de actualizar posición actual
+            }
             posicionActual = destinoSeleccionado;
             std::cout << "Has llegado a " << posicionActual << ".\n";
         } else {
@@ -249,7 +236,6 @@ public:
         }
     }
 
-
     void encuentroPokemon() {
         std::cout << "¡Encontraste un Pokémon salvaje! ¿Quieres pelear o huir?\n";
         std::cout << "1. Pelear\n";
@@ -265,7 +251,6 @@ public:
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
         }
     }
-
 
     void encuentroEntrenador() {
         std::cout << "¡Encontraste un entrenador Pokémon dispuesto a luchar! ¿Quieres pelear o huir?\n";
@@ -283,7 +268,6 @@ public:
         }
     }
 
-
     void encuentroObjeto() {
         std::cout << "¡Has encontrado un objeto en el camino! ¿Quieres cogerlo o dejarlo?\n";
         std::cout << "1. Cogerlo\n";
@@ -300,32 +284,54 @@ public:
         }
     }
 
-
     void mostrarInformacion() {
-        // Proporcionar información relevante sobre la ciudad
-        std::cout << grafo.consultarVertice(posicionActual).toString() << "\n";
-    }
-
-
-    void ejecutar() {
-        while (true) {
-            if (esCiudad(posicionActual)) {
-                menuCiudad();
-            } else {
-                menuRuta();
-            }
+        // Proporcionar información relevante sobre la ciudad o ruta
+        auto vertice = grafo.consultarVertice(posicionActual);
+        if (esCiudad(posicionActual)) {
+            std::shared_ptr<Ciudad> ciudad = std::static_pointer_cast<Ciudad>(vertice);
+            std::cout << ciudad->toString() << "\n";
+        } else {
+            std::shared_ptr<Ruta> ruta = std::static_pointer_cast<Ruta>(vertice);
+            std::cout << ruta->toString() << "\n";
         }
     }
-/*
+
+    void ejecutar() {
+        inicializarMapa();
+        while (juegoContinua) {
+            if (esCiudad(posicionActual)) {
+                std::cout << "\nTe encuentras en " << posicionActual << ".\n";
+                menuCiudad();
+            } else if (esRuta(posicionActual)) {
+                std::cout << "\nEstás en " << posicionActual << ".\n";
+                menuRuta();
+            } else {
+                std::cout << "Error: Posición actual no válida.\n";
+                break;
+            }
+
+            // Verificar si el jugador ha llegado a la última ciudad
+            if (posicionActual == "P11") {
+                std::cout << "¡Felicidades! Has llegado a la última ciudad.\n";
+                std::cout << "¿Quieres continuar jugando? (s/n): ";
+                char respuesta;
+                std::cin >> respuesta;
+                if (respuesta != 's' && respuesta != 'S') {
+                    juegoContinua = false;
+                }
+            }
+        }
+
+        std::cout << "Gracias por jugar. ¡Hasta la próxima!\n";
+    }
+
     bool esCiudad(const std::string& nombre) {
-        // Asumiendo que las ciudades tienen nombres que empiezan con "Ciudad"
-        return nombre.find("Ciudad") == 0;
-    }*/
-    bool esCiudad(const std::string& nombre) {
-        // Asumiendo que las ciudades tienen nombres que empiezan con "Ciudad"
         return nombre.find("Ciudad") != std::string::npos;
     }
 
+    bool esRuta(const std::string& nombre) {
+        return nombre.find("Ruta") != std::string::npos;
+    }
 };
 
 #endif //ACTV_GRUPAL_MAPA_H

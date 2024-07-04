@@ -267,5 +267,6 @@ public:
     }
 };
 
-
 #endif //ACTV_GRUPAL_GRAFO_H
+
+

@@ -45,5 +45,4 @@ public:
     }
 };
 
-
 #endif //ACTV_GRUPAL_PAR_H

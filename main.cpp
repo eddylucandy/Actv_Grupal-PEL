@@ -1,17 +1,17 @@
-
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 #include "Mapa.h"
 
+int main() {
+    // Inicializar la semilla del generador de números aleatorios
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-using namespace std;
+    // Crear el objeto mapa
+    Mapa mapa;
 
+    // Ejecutar el juego
+    mapa.ejecutar();
 
-    int main() {
-        // Crear el objeto Mapa
-        Mapa ini;
-
-        // Ejecutar el bucle principal del menú
-        ini.ejecutar();
-
-        return 0;
-    }
+    return 0;
+}
