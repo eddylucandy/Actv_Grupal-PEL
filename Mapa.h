@@ -2,6 +2,7 @@
 // Created by Eddy Lucandy on 13/6/24.
 //
 
+
 #ifndef ACTV_GRUPAL_MAPA_H
 #define ACTV_GRUPAL_MAPA_H
 
@@ -15,15 +16,21 @@
 
 class Mapa {
 private:
-    Grafo<std::string, std::shared_ptr<void>, int> grafo; // Usar std::shared_ptr<void> para almacenar tanto Ciudad como Ruta
+    Grafo<std::string, std::shared_ptr<void>, int> grafo;
     std::string posicionActual;
     bool juegoContinua;
 
 public:
-    Mapa() : juegoContinua(true) {}
+    Mapa() : juegoContinua(true) {
+        std::cout << "Mapa creado\n";
+    }
+
+    ~Mapa() {
+        std::cout << "Mapa destruido\n";
+    }
 
     void inicializarMapa() {
-        // Crear ciudades y rutas según el mapa proporcionado
+        std::cout << "Inicializando mapa...\n";
         auto P1 = std::make_shared<Ciudad>("Ciudad1");
         auto P2 = std::make_shared<Ciudad>("Ciudad2");
         auto P3 = std::make_shared<Ciudad>("Ciudad3");
@@ -51,7 +58,6 @@ public:
         auto R12 = std::make_shared<Ruta>("Ruta12");
         auto R13 = std::make_shared<Ruta>("Ruta13");
 
-        // Insertar ciudades y rutas en el grafo
         grafo.insertarVertice("P1", P1);
         grafo.insertarVertice("P2", P2);
         grafo.insertarVertice("P3", P3);
@@ -79,7 +85,6 @@ public:
         grafo.insertarVertice("R12", R12);
         grafo.insertarVertice("R13", R13);
 
-        // Crear conexiones entre ciudades y rutas según el mapa proporcionado
         grafo.insertarArista("P1", "R1", 1);
         grafo.insertarArista("R1", "P12", 1);
         grafo.insertarArista("P12", "R2", 1);
@@ -107,10 +112,8 @@ public:
         grafo.insertarArista("P10", "R13", 1);
         grafo.insertarArista("R13", "P11", 1);
 
-        // Mostrar el grafo (mapa)
         std::cout << grafo.toString() << std::endl;
 
-        // Definir la posición inicial del jugador
         posicionActual = "P1";
     }
 
@@ -135,11 +138,9 @@ public:
                 break;
             case 3:
                 std::cout << "Abriendo la mochila...\n";
-                // Lógica para mostrar o manipular el contenido de la mochila
                 break;
             case 4:
                 std::cout << "Mostrando el equipo Pokémon.\n";
-                // Lógica para mostrar o cambiar el equipo Pokémon
                 break;
             case 5:
                 mostrarInformacion();
@@ -169,8 +170,6 @@ public:
 
         switch (opcion) {
             case 1:
-                std::cout << "Explorando la ruta desde " << posicionActual << "...\n";
-                // Lógica para explorar la ruta
                 explorarRuta();
                 break;
             case 2:
@@ -205,11 +204,12 @@ public:
         if (opcion > 0 && opcion <= destinos.longitud()) {
             std::string destinoSeleccionado = destinos.consultar(opcion);
             if (esRuta(destinoSeleccionado)) {
-                menuRuta(); // Invoca el menú de ruta antes de actualizar posición actual
+                posicionActual = destinoSeleccionado;
+                menuRuta();
             } else {
-                menuCiudad(); // Invoca el menú de ciudad antes de actualizar posición actual
+                posicionActual = destinoSeleccionado;
+                menuCiudad();
             }
-            posicionActual = destinoSeleccionado;
             std::cout << "Has llegado a " << posicionActual << ".\n";
         } else {
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
@@ -218,7 +218,7 @@ public:
 
     void explorarRuta() {
         std::cout << "Explorando la ruta...\n";
-        int encuentro = rand() % 3;  // Genera un número aleatorio entre 0 y 2
+        int encuentro = rand() % 3;
 
         switch (encuentro) {
             case 0:
@@ -244,10 +244,9 @@ public:
         std::cin >> eleccion;
         if (eleccion == 1) {
             std::cout << "¡Comienzas la batalla Pokémon!\n";
-            // Lógica de batalla (a implementar)
-        }else if(eleccion == 2){
+        } else if (eleccion == 2) {
             std::cout << "Decides huir. Continuas tu viaje.\n";
-        }else {
+        } else {
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
         }
     }
@@ -260,10 +259,9 @@ public:
         std::cin >> eleccion;
         if (eleccion == 1) {
             std::cout << "¡El combate comienza!\n";
-            // Lógica de combate (a implementar)
-        } else if(eleccion == 2){
+        } else if (eleccion == 2) {
             std::cout << "Decides huir. Sigues tu camino.\n";
-        }else{
+        } else {
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
         }
     }
@@ -276,22 +274,20 @@ public:
         std::cin >> eleccion;
         if (eleccion == 1) {
             std::cout << "Tomas el objeto y lo guardas en tu mochila.\n";
-            // Añadir objeto a la mochila (a implementar)
-        } else if (eleccion == 2){
+        } else if (eleccion == 2) {
             std::cout << "Decides dejarlo donde está y continuar tu aventura.\n";
-        }else{
+        } else {
             std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
         }
     }
 
     void mostrarInformacion() {
-        // Proporcionar información relevante sobre la ciudad o ruta
         auto vertice = grafo.consultarVertice(posicionActual);
         if (esCiudad(posicionActual)) {
-            std::shared_ptr<Ciudad> ciudad = std::static_pointer_cast<Ciudad>(vertice);
+            auto ciudad = std::static_pointer_cast<Ciudad>(vertice);
             std::cout << ciudad->toString() << "\n";
         } else {
-            std::shared_ptr<Ruta> ruta = std::static_pointer_cast<Ruta>(vertice);
+            auto ruta = std::static_pointer_cast<Ruta>(vertice);
             std::cout << ruta->toString() << "\n";
         }
     }
@@ -310,7 +306,6 @@ public:
                 break;
             }
 
-            // Verificar si el jugador ha llegado a la última ciudad
             if (posicionActual == "P11") {
                 std::cout << "¡Felicidades! Has llegado a la última ciudad.\n";
                 std::cout << "¿Quieres continuar jugando? (s/n): ";
@@ -321,7 +316,6 @@ public:
                 }
             }
         }
-
         std::cout << "Gracias por jugar. ¡Hasta la próxima!\n";
     }
 
@@ -335,3 +329,4 @@ public:
 };
 
 #endif //ACTV_GRUPAL_MAPA_H
+

@@ -1,7 +1,6 @@
 //
 // Created by Eddy Lucandy on 14/6/24.
 //
-
 #ifndef ACTV_GRUPAL_GRAFO_H
 #define ACTV_GRUPAL_GRAFO_H
 
@@ -9,7 +8,7 @@
 #include "Lista.h"
 #include "Par.h"
 #include <string>
-#include <memory> // para std::shared_ptr
+#include <memory>
 #include <stdexcept>
 #include <iostream>
 
@@ -41,10 +40,6 @@ protected:
 
 public:
     Grafo() {}
-
-    ~Grafo() {
-        // No es necesario eliminar manualmente al usar smart pointers
-    }
 
     bool esVacio() const {
         return vertices.longitud() == 0;
@@ -268,5 +263,6 @@ public:
 };
 
 #endif //ACTV_GRUPAL_GRAFO_H
+
 
 
