@@ -1,10 +1,10 @@
 //
 // Created by Eddy Lucandy on 14/6/24.
 //
+
 #ifndef ACTV_GRUPAL_GRAFO_H
 #define ACTV_GRUPAL_GRAFO_H
 
-#pragma once
 #include "Lista.h"
 #include "Par.h"
 #include <string>
@@ -19,11 +19,8 @@ protected:
     public:
         Clave clave;
         InfoVertice vertice;
-        int gradoEntrada;
-        int gradoSalida;
 
-        NodoVertice(Clave c, InfoVertice v)
-                : clave(c), vertice(v), gradoEntrada(0), gradoSalida(0) {}
+        NodoVertice(Clave c, InfoVertice v) : clave(c), vertice(v) {}
     };
 
     class NodoArista {
@@ -31,7 +28,6 @@ protected:
         std::shared_ptr<NodoVertice> destino;
         Coste coste;
 
-        NodoArista(std::shared_ptr<NodoVertice> d) : destino(d), coste(Coste()) {}
         NodoArista(std::shared_ptr<NodoVertice> d, Coste c) : destino(d), coste(c) {}
     };
 
@@ -62,6 +58,12 @@ public:
     void eliminarVertice(Clave c) {
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == c) {
+                // Eliminar las aristas asociadas
+                Lista<std::shared_ptr<NodoArista> > aristasVertice = aristas.consultar(i);
+                for (int j = 1; j <= aristasVertice.longitud(); ++j) {
+                    eliminarArista(c, aristasVertice.consultar(j)->destino->clave);
+                }
+
                 vertices.borrar(i);
                 aristas.borrar(i);
                 break;
@@ -98,9 +100,8 @@ public:
         }
 
         if (origen && destino) {
-            aristas.consultar(i).insertar(1, std::make_shared<NodoArista>(destino, c));
-            origen->gradoSalida++;
-            destino->gradoEntrada++;
+            aristas.consultar(i).insertar(aristas.consultar(i).longitud() + 1, std::make_shared<NodoArista>(destino, c));
+            aristas.consultar(j).insertar(aristas.consultar(j).longitud() + 1, std::make_shared<NodoArista>(origen, c));
         } else {
             std::cerr << "Error: Origen o destino no encontrado para insertar la arista.\n";
         }
@@ -112,7 +113,14 @@ public:
                 for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
                     if (aristas.consultar(i).consultar(j)->destino->clave == d) {
                         aristas.consultar(i).consultar(j)->coste = c;
-                        return;
+                    }
+                }
+            }
+
+            if (vertices.consultar(i)->clave == d) {
+                for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
+                    if (aristas.consultar(i).consultar(j)->destino->clave == o) {
+                        aristas.consultar(i).consultar(j)->coste = c;
                     }
                 }
             }
@@ -125,9 +133,16 @@ public:
                 for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
                     if (aristas.consultar(i).consultar(j)->destino->clave == d) {
                         aristas.consultar(i).borrar(j);
-                        vertices.consultar(i)->gradoSalida--;
-                        vertices.consultar(j)->gradoEntrada--;
-                        return;
+                        break;
+                    }
+                }
+            }
+
+            if (vertices.consultar(i)->clave == d) {
+                for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
+                    if (aristas.consultar(i).consultar(j)->destino->clave == o) {
+                        aristas.consultar(i).borrar(j);
+                        break;
                     }
                 }
             }
@@ -147,50 +162,16 @@ public:
         return Coste();
     }
 
-    int gradoEntrada(Clave v) const {
-        for (int i = 1; i <= vertices.longitud(); ++i) {
-            if (vertices.consultar(i)->clave == v) {
-                return vertices.consultar(i)->gradoEntrada;
-            }
-        }
-        return 0;
-    }
-
-    int gradoSalida(Clave v) const {
-        for (int i = 1; i <= vertices.longitud(); ++i) {
-            if (vertices.consultar(i)->clave == v) {
-                return vertices.consultar(i)->gradoSalida;
-            }
-        }
-        return 0;
-    }
-
     Lista<Clave> listaSucesores(Clave v) const {
         Lista<Clave> sucesores;
         for (int i = 1; i <= vertices.longitud(); ++i) {
             if (vertices.consultar(i)->clave == v) {
                 for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
-                    sucesores.insertar(j, aristas.consultar(i).consultar(j)->destino->clave);
+                    sucesores.insertar(sucesores.longitud() + 1, aristas.consultar(i).consultar(j)->destino->clave);
                 }
             }
         }
         return sucesores;
-    }
-
-    Lista<Clave> listaPredecesores(Clave v) const {
-        Lista<Clave> predecesores;
-        for (int i = 1; i <= vertices.longitud(); ++i) {
-            for (int j = 1; j <= aristas.consultar(i).longitud(); ++j) {
-                if (aristas.consultar(i).consultar(j)->destino->clave == v) {
-                    predecesores.insertar(predecesores.longitud() + 1, vertices.consultar(i)->clave);
-                }
-            }
-        }
-        return predecesores;
-    }
-
-    int numVertices() const {
-        return vertices.longitud();
     }
 
     Lista<Clave> listaVertices() const {
@@ -209,7 +190,7 @@ public:
             for (int j = 1; j <= sucesores.longitud(); ++j) {
                 Clave destino = sucesores.consultar(j);
                 Par<Clave, Clave> arista(origen, destino);
-                listado.insertar(1, arista);
+                listado.insertar(listado.longitud() + 1, arista);
             }
         }
         return listado;
@@ -263,6 +244,3 @@ public:
 };
 
 #endif //ACTV_GRUPAL_GRAFO_H
-
-
-

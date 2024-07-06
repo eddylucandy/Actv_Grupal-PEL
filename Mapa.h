@@ -2,7 +2,6 @@
 // Created by Eddy Lucandy on 13/6/24.
 //
 
-
 #ifndef ACTV_GRUPAL_MAPA_H
 #define ACTV_GRUPAL_MAPA_H
 
@@ -13,6 +12,8 @@
 #include "Par.h"
 #include "Rutas.h"
 #include <memory>
+#include <iostream>
+#include <ctime>
 
 class Mapa {
 private:
@@ -22,12 +23,51 @@ private:
 
 public:
     Mapa() : juegoContinua(true) {
+        std::srand(static_cast<unsigned int>(std::time(nullptr))); // Inicializa el generador de números aleatorios
         std::cout << "Mapa creado\n";
     }
-
+/*
     ~Mapa() {
         std::cout << "Mapa destruido\n";
+    }*/
+
+    bool verificarGrafo() const {
+        string c;
+        if (!grafo.esVacio()) {
+            Lista<string> vertices = grafo.listaVertices();  // Obtiene la lista de vértices una vez
+            for (int i = 1; i <= vertices.longitud(); i++) {  // Usa '<=' para asegurar la iteración correcta
+                cout << vertices.consultar(i) << endl;  // Imprime cada vértice
+                cout << "si existe";
+            }
+        } else {
+            cout << "El grafo está vacío." << endl;
+        }
+
+        Lista<std::string> vertices = grafo.listaVertices();
+        for (int i = 1; i <= vertices.longitud(); ++i) {
+            std::string vertice = vertices.consultar(i);
+            if (!grafo.existeVertice(vertice)) {
+                std::cout << "Error: El vértice " << vertice << " no existe en el grafo." << std::endl;
+                return false;
+            }
+
+            Lista<std::string> sucesores = grafo.listaSucesores(vertice);
+            for (int j = 1; j <= sucesores.longitud(); ++j) {
+                std::string sucesor = sucesores.consultar(j);
+                if (!grafo.existeVertice(sucesor)) {
+                    std::cout << "Error: El sucesor " << sucesor << " de " << vertice << " no existe en el grafo." << std::endl;
+                    return false;
+                }
+            }
+        }
+        std::cout << "El grafo fue creado correctamente." << std::endl;
+        return true;
     }
+
+    bool grafoEstaVacio() const {
+        return grafo.esVacio();
+    }
+
 
     void inicializarMapa() {
         std::cout << "Inicializando mapa...\n";
@@ -86,36 +126,49 @@ public:
         grafo.insertarVertice("R13", R13);
 
         grafo.insertarArista("P1", "R1", 1);
-        grafo.insertarArista("R1", "P12", 1);
-        grafo.insertarArista("P12", "R2", 1);
-        grafo.insertarArista("R2", "P11", 1);
-        grafo.insertarArista("P1", "R3", 1);
-        grafo.insertarArista("R3", "P2", 1);
-        grafo.insertarArista("P2", "R4", 1);
-        grafo.insertarArista("R4", "P3", 1);
-        grafo.insertarArista("P3", "R5", 1);
-        grafo.insertarArista("R5", "P4", 1);
-        grafo.insertarArista("P4", "R6", 1);
-        grafo.insertarArista("R6", "P5", 1);
-        grafo.insertarArista("P4", "R7", 1);
-        grafo.insertarArista("R7", "P6", 1);
-        grafo.insertarArista("P5", "R8", 1);
-        grafo.insertarArista("R8", "P7", 1);
-        grafo.insertarArista("P6", "R9", 1);
-        grafo.insertarArista("R9", "P8", 1);
-        grafo.insertarArista("P7", "R10", 1);
-        grafo.insertarArista("R10", "P8", 1);
-        grafo.insertarArista("P8", "R11", 1);
-        grafo.insertarArista("R11", "P9", 1);
-        grafo.insertarArista("P9", "R12", 1);
-        grafo.insertarArista("R12", "P10", 1);
-        grafo.insertarArista("P10", "R13", 1);
-        grafo.insertarArista("R13", "P11", 1);
+        grafo.insertarArista("R1", "P12", 2);
+        grafo.insertarArista("P12", "R2", 3);
+        grafo.insertarArista("R2", "P11", 4);
+        grafo.insertarArista("P1", "R3", 5);
+        grafo.insertarArista("R3", "P2", 6);
+        grafo.insertarArista("P2", "R4", 7);
+        grafo.insertarArista("R4", "P3", 8);
+        grafo.insertarArista("P3", "R5", 9);
+        grafo.insertarArista("R5", "P4", 10);
+        grafo.insertarArista("P4", "R6", 11);
+        grafo.insertarArista("R6", "P5", 12);
+        grafo.insertarArista("P4", "R7", 13);
+        grafo.insertarArista("R7", "P6", 14);
+        grafo.insertarArista("P5", "R8", 15);
+        grafo.insertarArista("R8", "P7", 16);
+        grafo.insertarArista("P6", "R9", 17);
+        grafo.insertarArista("R9", "P8", 18);
+        grafo.insertarArista("P7", "R10", 19);
+        grafo.insertarArista("R10", "P8", 20);
+        grafo.insertarArista("P8", "R11", 21);
+        grafo.insertarArista("R11", "P9", 22);
+        grafo.insertarArista("P9", "R12", 23);
+        grafo.insertarArista("R12", "P10", 24);
+        grafo.insertarArista("P10", "R13", 25);
+        grafo.insertarArista("R13", "P11", 26);
 
         std::cout << grafo.toString() << std::endl;
 
         posicionActual = "P1";
+
+        // Verificar si el grafo fue bien creado
+        if (!verificarGrafo()) {
+            std::cerr << "Error al crear el grafo." << std::endl;
+            return;
+        }
+
+        // Verificar si el grafo está vacío
+        if (grafoEstaVacio()) {
+            std::cerr << "El grafo está vacío." << std::endl;
+            return;
+        }
     }
+
 
     void menuCiudad() {
         int opcion;
@@ -125,7 +178,8 @@ public:
         std::cout << "3. Mochila\n";
         std::cout << "4. Equipo\n";
         std::cout << "5. Información\n";
-        std::cout << "6. Abandonar el juego\n";
+        std::cout << "6. Explorar Ciudad\n";
+        std::cout << "7. Abandonar el juego\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
 
@@ -146,6 +200,9 @@ public:
                 mostrarInformacion();
                 break;
             case 6:
+                explorarCiudad();
+                break;
+            case 7:
                 std::cout << "¿Estás seguro de que quieres abandonar el juego? (s/n): ";
                 char respuesta;
                 std::cin >> respuesta;
@@ -157,6 +214,12 @@ public:
                 std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
                 break;
         }
+    }
+
+    void explorarCiudad() {
+        auto vertice = grafo.consultarVertice(posicionActual);
+        auto ciudad = std::static_pointer_cast<Ciudad>(vertice);
+        ciudad->explorar();
     }
 
     void menuRuta() {
@@ -189,32 +252,61 @@ public:
         }
     }
 
-    void moverse() {
+
+    void mostrarMovimientosPosibles() const {
         Lista<std::string> destinos = grafo.listaSucesores(posicionActual);
-        if (destinos.longitud() == 0) {
+       /* if (destinos.longitud() == 0) {
             std::cout << "No hay destinos disponibles desde aquí." << std::endl;
             return;
-        }
+        }*/
+
+        std::cout << "Destinos disponibles:\n";
         for (int i = 1; i <= destinos.longitud(); ++i) {
-            std::cout << i << ". " << destinos.consultar(i) << "\n";
-        }
-        std::cout << "Selecciona la dirección a la que deseas moverte: ";
-        int opcion;
-        std::cin >> opcion;
-        if (opcion > 0 && opcion <= destinos.longitud()) {
-            std::string destinoSeleccionado = destinos.consultar(opcion);
-            if (esRuta(destinoSeleccionado)) {
-                posicionActual = destinoSeleccionado;
-                menuRuta();
-            } else {
-                posicionActual = destinoSeleccionado;
-                menuCiudad();
-            }
-            std::cout << "Has llegado a " << posicionActual << ".\n";
-        } else {
-            std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+            std::cout << destinos.consultar(i) << "\n";
         }
     }
+
+
+
+
+    void moverse() {
+        while (true) {
+            mostrarMovimientosPosibles();
+            Lista<std::string> destinos = grafo.listaSucesores(posicionActual);
+
+            /*if (destinos.longitud() == 0) {
+                return;
+            }*/
+
+            std::cout << "Selecciona la dirección a la que deseas moverte (por clave): ";
+            std::string clave;
+            std::cin >> clave;
+
+            bool destinoValido = false;
+            for (int i = 1; i <= destinos.longitud(); ++i) {
+                if (destinos.consultar(i) == clave) {
+                    destinoValido = true;
+                    break;
+                }
+            }
+
+            if (destinoValido) {
+                if (esRuta(clave)) {
+                    posicionActual = clave;
+                    menuRuta();
+                } else {
+                    posicionActual = clave;
+                    menuCiudad();
+                }
+                std::cout << "Has llegado a " << posicionActual << ".\n";
+                break;
+            } else {
+                std::cout << "Opción no válida. Por favor, intenta de nuevo.\n";
+            }
+        }
+    }
+
+
 
     void explorarRuta() {
         std::cout << "Explorando la ruta...\n";
@@ -320,11 +412,11 @@ public:
     }
 
     bool esCiudad(const std::string& nombre) {
-        return nombre.find("Ciudad") != std::string::npos;
+        return nombre[0] == 'P' && std::isdigit(nombre[1]);
     }
 
     bool esRuta(const std::string& nombre) {
-        return nombre.find("Ruta") != std::string::npos;
+        return nombre[0] == 'R' && std::isdigit(nombre[1]);
     }
 };
 
